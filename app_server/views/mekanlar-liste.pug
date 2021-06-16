@@ -1,0 +1,32 @@
+extends layout
+include ortak_fonksiyonlar/fonksiyonlar
+block content
+  //Başlık bölümündeki bilgileri ayarlaya
+  #banner.page-header
+    //satır oluştur
+    .row
+      .col-lg-6
+        h1= sayfaBaslik.siteAd
+          small &nbsp;#{sayfaBaslik.aciklama}
+  .row
+    //mobil uyumlu listeleme
+    .col-xs-12.col-sm-12
+    .error=mesaj
+      //Liste grubu oluştur
+      each mekan in mekanlar
+        .row.list-group
+         //Listeye öğe ekleme. Birden fazla eleman ekliycekseniz
+         //aşağıdaki kodu kopyalayın ve yapıştırın
+         .col-xs-12.list-group-item
+             //Linklerin, yıldızların ve adresin oluşturulması
+             h4
+               -var mekanid=mekan.id
+               a(href='/mekan/'+mekanid)= mekan.ad
+               small &nbsp;
+               +puanOlustur(mekan.puan)               
+             span.badge.pull-right.badge-default= mekan.mesafe
+             p.address= mekan.adres
+             p
+                each imkan in mekan.imkanlar
+                 span.label.label-warning= imkan
+                 | &nbsp;
